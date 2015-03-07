@@ -1,14 +1,14 @@
-![status](https://secure.travis-ci.org/wearefractal/gulp-coffee.png?branch=master)
+![status](https://secure.travis-ci.org/bodhiBit/gulp-mammouth.png?branch=master)
 
 ## Information
 
 <table>
 <tr>
-<td>Package</td><td>gulp-coffee</td>
+<td>Package</td><td>gulp-mammouth</td>
 </tr>
 <tr>
 <td>Description</td>
-<td>Compiles CoffeeScript</td>
+<td>Compiles mammouth</td>
 </tr>
 <tr>
 <td>Node Version</td>
@@ -19,39 +19,39 @@
 ## Usage
 
 ```javascript
-var coffee = require('gulp-coffee');
+var mammouth = require('gulp-mammouth');
 
-gulp.task('coffee', function() {
-  gulp.src('./src/*.coffee')
-    .pipe(coffee({bare: true}).on('error', gutil.log))
+gulp.task('mammouth', function() {
+  gulp.src('./src/*.mammouth')
+    .pipe(mammouth({bare: true}).on('error', gutil.log))
     .pipe(gulp.dest('./public/'))
 });
 ```
 
 ### Error handling
 
-gulp-coffee will emit an error for cases such as invalid coffeescript syntax. If uncaught, the error will crash gulp.
+gulp-mammouth will emit an error for cases such as invalid mammouth syntax. If uncaught, the error will crash gulp.
 
-You will need to attach a listener (i.e. `.on('error')`) for the error event emitted by gulp-coffee:
+You will need to attach a listener (i.e. `.on('error')`) for the error event emitted by gulp-mammouth:
 
 ```javascript
-var coffeeStream = coffee({bare: true});
+var mammouthStream = mammouth({bare: true});
 
 // Attach listener
-coffeeStream.on('error', function(err) {});
+mammouthStream.on('error', function(err) {});
 ```
 
-In addition, you may utilize [gulp-util](https://github.com/wearefractal/gulp-util)'s logging function:
+In addition, you may utilize [gulp-util](https://github.com/bodhiBit/gulp-util)'s logging function:
 
 ```javascript
 var gutil = require('gulp-util');
 
 // ...
 
-var coffeeStream = coffee({bare: true});
+var mammouthStream = mammouth({bare: true});
 
 // Attach listener
-coffeeStream.on('error', gutil.log);
+mammouthStream.on('error', gutil.log);
 
 ```
 
@@ -59,25 +59,25 @@ Since `.on(...)` returns `this`, you can make you can compact it as inline code:
 
 ```javascript
 
-gulp.src('./src/*.coffee')
-  .pipe(coffee({bare: true}).on('error', gutil.log))
+gulp.src('./src/*.mammouth')
+  .pipe(mammouth({bare: true}).on('error', gutil.log))
   // ...
 ```
 
 ## Options
 
-The options object supports the same options as the standard CoffeeScript compiler
+The options object supports the same options as the standard mammouth compiler
 
 ## Source maps
 
-gulp-coffee can be used in tandem with [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) to generate source maps for the coffee to javascript transition. You will need to initialize [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) prior to running the gulp-coffee compiler and write the source maps after.
+gulp-mammouth can be used in tandem with [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) to generate source maps for the mammouth to javascript transition. You will need to initialize [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) prior to running the gulp-mammouth compiler and write the source maps after.
 
 ```javascript
 var sourcemaps = require('gulp-sourcemaps');
 
-gulp.src('./src/*.coffee')
+gulp.src('./src/*.mammouth')
   .pipe(sourcemaps.init())
-  .pipe(coffee())
+  .pipe(mammouth())
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('./dest/js'));
 
@@ -89,9 +89,9 @@ By default, [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) write
 ```javascript
 var sourcemaps = require('gulp-sourcemaps');
 
-gulp.src('./src/*.coffee')
+gulp.src('./src/*.mammouth')
   .pipe(sourcemaps.init())
-  .pipe(coffee({ bare: true })).on('error', gutil.log)
+  .pipe(mammouth({ bare: true })).on('error', gutil.log)
   .pipe(sourcemaps.write('./maps'))
   .pipe(gulp.dest('./dest/js'));
 
@@ -102,7 +102,7 @@ gulp.src('./src/*.coffee')
 
 (MIT License)
 
-Copyright (c) 2015 Fractal <contact@wearefractal.com>
+Copyright (c) 2015 bodhiBit
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

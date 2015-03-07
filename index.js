@@ -1,5 +1,5 @@
 var through = require('through2');
-var coffee = require('coffee-script');
+var mammouth = require('mammouth');
 var gutil = require('gulp-util');
 var applySourceMap = require('vinyl-sourcemaps-apply');
 var path = require('path');
@@ -9,13 +9,13 @@ var PluginError = gutil.PluginError;
 
 module.exports = function (opt) {
   function replaceExtension(path) {
-    path = path.replace(/\.coffee\.md$/, '.litcoffee');
+    path = path.replace(/\.mammouth\.md$/, '.litmammouth');
     return gutil.replaceExtension(path, '.js');
   }
 
   function transform(file, enc, cb) {
     if (file.isNull()) return cb(null, file);
-    if (file.isStream()) return cb(new PluginError('gulp-coffee', 'Streaming not supported'));
+    if (file.isStream()) return cb(new PluginError('gulp-mammouth', 'Streaming not supported'));
 
     var data;
     var str = file.contents.toString('utf8');
@@ -26,16 +26,16 @@ module.exports = function (opt) {
       header: false,
       sourceMap: !!file.sourceMap,
       sourceRoot: false,
-      literate: /\.(litcoffee|coffee\.md)$/.test(file.path),
+      literate: /\.(litmammouth|mammouth\.md)$/.test(file.path),
       filename: file.path,
       sourceFiles: [file.relative],
       generatedFile: replaceExtension(file.relative)
     }, opt);
 
     try {
-      data = coffee.compile(str, options);
+      data = mammouth.compile(str, options);
     } catch (err) {
-      return cb(new PluginError('gulp-coffee', err));
+      return cb(new PluginError('gulp-mammouth', err));
     }
 
     if (data && data.v3SourceMap && file.sourceMap) {
