@@ -1,5 +1,5 @@
 var through = require('through2');
-var mammouth = require('mammouth');
+var mammouth = require('mammouth/lib/mammouth');
 var gutil = require('gulp-util');
 var applySourceMap = require('vinyl-sourcemaps-apply');
 var path = require('path');
@@ -7,10 +7,9 @@ var merge = require('merge');
 
 var PluginError = gutil.PluginError;
 
-module.exports = function (opt) {
+module.exports = function () {
   function replaceExtension(path) {
-    path = path.replace(/\.mammouth\.md$/, '.litmammouth');
-    return gutil.replaceExtension(path, '.js');
+    return gutil.replaceExtension(path, '.php');
   }
 
   function transform(file, enc, cb) {
@@ -21,30 +20,13 @@ module.exports = function (opt) {
     var str = file.contents.toString('utf8');
     var dest = replaceExtension(file.path);
 
-    var options = merge({
-      bare: false,
-      header: false,
-      sourceMap: !!file.sourceMap,
-      sourceRoot: false,
-      literate: /\.(litmammouth|mammouth\.md)$/.test(file.path),
-      filename: file.path,
-      sourceFiles: [file.relative],
-      generatedFile: replaceExtension(file.relative)
-    }, opt);
-
     try {
-      data = mammouth.compile(str, options);
+      data = mammouth.compile(str);
     } catch (err) {
       return cb(new PluginError('gulp-mammouth', err));
     }
 
-    if (data && data.v3SourceMap && file.sourceMap) {
-      applySourceMap(file, data.v3SourceMap);
-      file.contents = new Buffer(data.js);
-    } else {
-      file.contents = new Buffer(data);
-    }
-
+    file.contents = new Buffer(data);
     file.path = dest;
     cb(null, file);
   }

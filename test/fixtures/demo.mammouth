@@ -1,0 +1,26 @@
+{{
+# Assignement
+number   = 42
+opposite = false
+
+# Condition
+number = (-42 if opposite else 13)
+
+# Condition
+list = [1, 2, 3, 4, 5]
+
+echo "I knew it!" if elvis?
+
+### mammouth can detect difference
+    between user-defined function
+    and variable stored function ###
+square = func (x) ->
+ return x * x
+
+square()
+
+func Hello->
+ echo 'Hello Mammouth'
+
+Hello()
+}}
