@@ -1,6 +1,6 @@
 {
   "name": "gulp-mammouth",
-  "description": "Compile mammouth files",
+  "description": "Compile .mammouth files to PHP",
   "version": "1.0.0",
   "homepage": "http://github.com/bodhiBit/gulp-mammouth",
   "repository": "git://github.com/bodhiBit/gulp-mammouth.git",

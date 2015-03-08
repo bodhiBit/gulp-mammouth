@@ -8,7 +8,7 @@
 </tr>
 <tr>
 <td>Description</td>
-<td>Compiles .mammouth files</td>
+<td>Compiles .mammouth files to PHP</td>
 </tr>
 <tr>
 <td>Node Version</td>
