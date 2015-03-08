@@ -8,13 +8,15 @@
 </tr>
 <tr>
 <td>Description</td>
-<td>Compiles mammouth</td>
+<td>Compiles .mammouth files</td>
 </tr>
 <tr>
 <td>Node Version</td>
 <td>>= 0.9</td>
 </tr>
 </table>
+
+The code is copied from [gulp-coffee](https://github.com/wearefractal/gulp-coffee) and adapted to use [mammouth](https://github.com/btwael/mammouth) instead.
 
 ## Usage
 
@@ -23,7 +25,7 @@ var mammouth = require('gulp-mammouth');
 
 gulp.task('mammouth', function() {
   gulp.src('./src/*.mammouth')
-    .pipe(mammouth({bare: true}).on('error', gutil.log))
+    .pipe(mammouth().on('error', gutil.log))
     .pipe(gulp.dest('./public/'))
 });
 ```
@@ -35,20 +37,20 @@ gulp-mammouth will emit an error for cases such as invalid mammouth syntax. If u
 You will need to attach a listener (i.e. `.on('error')`) for the error event emitted by gulp-mammouth:
 
 ```javascript
-var mammouthStream = mammouth({bare: true});
+var mammouthStream = mammouth();
 
 // Attach listener
 mammouthStream.on('error', function(err) {});
 ```
 
-In addition, you may utilize [gulp-util](https://github.com/bodhiBit/gulp-util)'s logging function:
+In addition, you may utilize [gulp-util](https://github.com/wearefractal/gulp-util)'s logging function:
 
 ```javascript
 var gutil = require('gulp-util');
 
 // ...
 
-var mammouthStream = mammouth({bare: true});
+var mammouthStream = mammouth();
 
 // Attach listener
 mammouthStream.on('error', gutil.log);
@@ -60,43 +62,13 @@ Since `.on(...)` returns `this`, you can make you can compact it as inline code:
 ```javascript
 
 gulp.src('./src/*.mammouth')
-  .pipe(mammouth({bare: true}).on('error', gutil.log))
+  .pipe(mammouth().on('error', gutil.log))
   // ...
 ```
 
 ## Options
 
-The options object supports the same options as the standard mammouth compiler
-
-## Source maps
-
-gulp-mammouth can be used in tandem with [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) to generate source maps for the mammouth to javascript transition. You will need to initialize [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) prior to running the gulp-mammouth compiler and write the source maps after.
-
-```javascript
-var sourcemaps = require('gulp-sourcemaps');
-
-gulp.src('./src/*.mammouth')
-  .pipe(sourcemaps.init())
-  .pipe(mammouth())
-  .pipe(sourcemaps.write())
-  .pipe(gulp.dest('./dest/js'));
-
-// will write the source maps inline in the compiled javascript files
-```
-
-By default, [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) writes the source maps inline in the compiled javascript files. To write them to a separate file, specify a relative file path in the `sourcemaps.write()` function.
-
-```javascript
-var sourcemaps = require('gulp-sourcemaps');
-
-gulp.src('./src/*.mammouth')
-  .pipe(sourcemaps.init())
-  .pipe(mammouth({ bare: true })).on('error', gutil.log)
-  .pipe(sourcemaps.write('./maps'))
-  .pipe(gulp.dest('./dest/js'));
-
-// will write the source maps to ./dest/js/maps
-```
+There are no options for the Mammouth compiler
 
 ## LICENSE
 

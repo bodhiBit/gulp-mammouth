@@ -7,7 +7,8 @@
   "author": "bodhiBit",
   "main": "./index.js",
   "keywords": [
-    "gulpplugin"
+    "gulpplugin",
+    "mammouth"
   ],
   "dependencies": {
     "gulp-util": "^3.0.2",
